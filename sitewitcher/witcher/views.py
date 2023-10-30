@@ -1,10 +1,34 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.template.loader import render_to_string
+
+menu = ['о сайте', 'Добавить статью', 'Обратная связь', 'Войти']
+
+
+class Myclass:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
 
 def index(request):  # HttpRequest
-    return HttpResponse('Страница приложения witcher')
+    # t = render_to_string('witcher/index.html')
+    # return HttpResponse(t)
+    data = {
+            'title': 'Главная страница',
+            'menu': menu,
+            'float': 28.56,
+            'lst': [1, 2, 'abc', True],
+            'set': {1, 2, 3, 2, 5},
+            'dict': {'key_1': 'value_1', 'key_2': 'value_2'},
+            'obj': Myclass(10, 20)
+            }
+    return render(request, 'witcher/index.html', context = data)
+
+
+def about(request):
+    return render(request, 'witcher/about.html', {'title': 'О сайте'})
 
 
 def categories(request, witcher_school_id):
