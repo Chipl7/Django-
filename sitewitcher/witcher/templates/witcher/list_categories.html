@@ -1,0 +1,7 @@
+{% for character in character %}
+{% if character.id == character_selected %}
+<li class="selected">{{character.name}}</li>
+{% else %}
+<li><a href="{% url 'category' character.id %}">{{character.name}}</a></li>
+{% endif %}
+{% endfor %}

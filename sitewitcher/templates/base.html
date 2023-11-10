@@ -1,4 +1,6 @@
 {% load static %}
+{% load witcher_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,10 +32,14 @@
 <!-- Sidebar слева -->
 	<td valign="top" class="left-chapters">
 	<ul id="leftchapters">
+		{% if character_selected == 0 or character_selected is None %}
 		<li class="selected">Все категории</li>
-		<li><a href="#">Ведьмаки</a></li>
-		<li><a href="#">Правители</a></li>
-		<li><a href="#">Волшебницы</a></li>
+		{% else %}
+		<li><a href="{% url 'home' %}">Все категории</a></li>
+		{% endif %}
+
+		{% show_categories character_selected %}
+
 		<li class="share">
 		</li>
 	</ul>

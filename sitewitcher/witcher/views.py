@@ -16,7 +16,13 @@ data_db = [
     Имеет романтический интерес к двум чародейкам: Йеннифэр из Венгерберга и Трисс Меригольд. Его лучшими друзьями помимо ведьмаков из своей школы являются бард по имени Лютик, краснолюд Золтан Хивай и высший вампир Эмиель Регис.''', 'is_published': True},
     {'id': 2, 'title': 'Йеннифэр из Венгерберга', 'content': 'Биография Йеннифэр', 'is_published': False},
     {'id': 3, 'title': 'Цирилла Фиона Элен Рианнон', 'content': 'Биография Аире', 'is_published': True},
-          ]
+]
+
+character_db = [
+    {'id': 1, 'name': 'Ведьмаки'},
+    {'id': 2, 'name': 'Волшебницы'},
+    {'id': 3, 'name': 'Правители'},
+]
 
 
 def index(request):  # HttpRequest
@@ -26,6 +32,7 @@ def index(request):  # HttpRequest
             'title': 'Главная страница',
             'menu': menu,
             'posts': data_db,
+            'character_selected': 0,
             }
     return render(request, 'witcher/index.html', context = data)
 
@@ -39,7 +46,7 @@ def show_post(request, post_id):
 
 
 def addpage(request):
-    return HttpResponse('Добавить статью')
+    return render(request, 'witcher/addpage.html', {'title': 'Добавить страницу', 'menu': menu})
 
 
 def contact(request):
@@ -48,6 +55,16 @@ def contact(request):
 
 def login(request):
     return HttpResponse('Авторизация')
+
+
+def show_category(request, character_id):
+    data = {
+            'title': 'Отображение по рубликам',
+            'menu': menu,
+            'posts': data_db,
+            'character_selected': character_id,
+            }
+    return render(request, 'witcher/index.html', context = data)
 
 
 def page_not_found(request, exception):
